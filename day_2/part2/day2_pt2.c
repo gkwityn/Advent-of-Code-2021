@@ -45,34 +45,22 @@ int main(int argc, char const *argv[]){
         return EXIT_FAILURE;
     }
     
-    //int lines = 0;
-
     while(fscanf(fp, "%s %d", buff, &x_unites) != EOF){
-        //printf("%s  %d\n", buff, x_unites);
-        //printf("Hoz: %d, Depth: %d\n", horizontal, depth);
-        //lines++;
         
-
-        if(strcmp(buff, "forward") == 0){
-            printf("Hoz: %d\n", my_sub.horizontal);
+        if(strcmp(buff, "forward") == 0){          
             my_sub.depth += (my_sub.aim * x_unites);
-            my_sub.horizontal += x_unites;
-            
+            my_sub.horizontal += x_unites;            
         }
         else if(strcmp(buff, "up") == 0){
             my_sub.aim -= x_unites;
-            my_sub.depth-= x_unites;
-            //printf("Up: %d\n", depth);
+           
         }
         else if(strcmp(buff, "down") == 0){
             my_sub.aim += x_unites;
-            my_sub.depth += x_unites;
-            //printf("Down: %d\n", depth);
         }
     }
 
-    //printf("Lines Read: %d\n", lines);
-    printf("Horiz * Depth = %d\n", my_sub.horizontal * my_sub.depth);
+    printf("Horizontal * Depth = %d\n", my_sub.horizontal * my_sub.depth);
     
     fclose(fp);
     return 0;
