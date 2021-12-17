@@ -24,13 +24,14 @@ void build_gamma_epsilon(char *gamma, char *epsilon, int *ones, int *zeros){
 int base10_to_binary(char *array){
 
     int n = 0;
+    int c = 0;
 
     for(int i = BIT_LENGTH-2; i >= 0; i--){
         if(array[i] == '1'){
-            n += (1 << i);
+            n += (1 << c);
         }
+        c++;
     }
-
     return n;
 }
 
