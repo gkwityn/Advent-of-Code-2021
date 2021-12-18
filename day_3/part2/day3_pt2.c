@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #define BIT_LENGTH 13
+#define N_INPUT 1000
 
 //-------------------------------------------------------------------------------
 
@@ -76,6 +77,9 @@ int main(int argc, char const *argv[])
     int ones[BIT_LENGTH];
     int zeros[BIT_LENGTH];
 
+    char **o2_gen_array[N_INPUT];
+    char **co2_scrub_array[N_INPUT];
+
     
     for(int i = 0; i < BIT_LENGTH-1; i++){
         ones[i] = 0;
@@ -99,22 +103,38 @@ int main(int argc, char const *argv[])
             }
         }
     }
+    rewind(fp);
+
+    int ones_c = 0;
+
+    while(fscanf(fp, "%s", buff) != EOF){
+        
+        if(ones[k++] >= zeros[k]){
+            o2_gen_array[k] = buff;
+
+        }
+        else if(ones[k] < zeros[k]){
+            o2_gen_array[k] = buff;
+        }
+    }
 
     
 
-    build_gamma_epsilon(gamma, epsilon, ones, zeros);
-    printf("gamma base2: ");
-    print_binary_char_array(gamma);
-    printf("epsilon: base2: ");
-    print_binary_char_array(epsilon);
+    
 
-    int gamma_int = base10_to_binary(gamma);
-    int epsilon_int = base10_to_binary(epsilon);
+    // build_gamma_epsilon(gamma, epsilon, ones, zeros);
+    // printf("gamma base2: ");
+    // print_binary_char_array(gamma);
+    // printf("epsilon: base2: ");
+    // print_binary_char_array(epsilon);
 
-    printf("gamma base10: %d\n", gamma_int);
-    printf("epsilon base10: %d\n", epsilon_int);
+    // int gamma_int = base10_to_binary(gamma);
+    // int epsilon_int = base10_to_binary(epsilon);
 
-    printf("gamma * epsilon = %d\n", gamma_int*epsilon_int);
+    // printf("gamma base10: %d\n", gamma_int);
+    // printf("epsilon base10: %d\n", epsilon_int);
+
+    // printf("gamma * epsilon = %d\n", gamma_int*epsilon_int);
 
 
 
