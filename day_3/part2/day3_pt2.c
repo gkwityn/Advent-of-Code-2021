@@ -1,5 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+
+
 
 #define BIT_LENGTH 13
 #define N_INPUT 1000
@@ -77,9 +80,11 @@ int main(int argc, char const *argv[])
     int ones[BIT_LENGTH];
     int zeros[BIT_LENGTH];
 
-    char **o2_gen_array[N_INPUT];
-    char **co2_scrub_array[N_INPUT];
+    char *o2_gen_array[N_INPUT];
+    char *co2_scrub_array[N_INPUT];
 
+    char input[N_INPUT][BIT_LENGTH];
+    int k = 0;
     
     for(int i = 0; i < BIT_LENGTH-1; i++){
         ones[i] = 0;
@@ -95,6 +100,8 @@ int main(int argc, char const *argv[])
 
     while(fscanf(fp, "%s", buff) != EOF){
         
+        strcpy(input[k++], buff);
+                
         for(int i = 0; i < BIT_LENGTH-1; i++){
             if(buff[i] == '1'){
                 ones[i] = ones[i]+1;
@@ -103,22 +110,23 @@ int main(int argc, char const *argv[])
             }
         }
     }
-    rewind(fp);
 
-    int ones_c = 0;
 
-    while(fscanf(fp, "%s", buff) != EOF){
-        
-        if(ones[k++] >= zeros[k]){
-            o2_gen_array[k] = buff;
+    int c = 0;
+    char **temp1;
+    char **temp2;
+    while(c < BIT_LENGTH-1){
 
+        if(ones[c] >= zeros[c]){
+            int o2_size = ones[i];
+            temp1 = malloc(sizeof(char *) * ones[c] );
+            for(int i = 0; i < )
         }
-        else if(ones[k] < zeros[k]){
-            o2_gen_array[k] = buff;
-        }
+
+        c++;
     }
-
     
+         
 
     
 
