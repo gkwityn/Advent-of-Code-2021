@@ -1,30 +1,22 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
 
 #define BIT_LENGTH 13
+#define N_INPUT 1000
+
+//-------------------------------------------------------------------------------
 
 void build_gamma_epsilon(char *gamma, char *epsilon, int *ones, int *zeros){
 
-   
-
-    for(int i = 0; i <= BIT_LENGTH; i++){
-        
-
-
-        if(i == BIT_LENGTH){
-            gamma[i] = '\0';
-            epsilon[i] = '\0';
-        }
-        else if (ones[i] > zeros[i]){
+    for(int i = 0; i < BIT_LENGTH-1; i++){
+        if (ones[i] > zeros[i]){
             gamma[i] = '1';
             epsilon[i] = '0';
         }
-        else if (zeros[i] > ones[i]){
+        else{
             gamma[i] = '0';
             epsilon[i] = '1';
         }
-        
     }
 
     return;
@@ -82,62 +74,70 @@ int main(int argc, char const *argv[])
     char gamma[BIT_LENGTH];
     char epsilon[BIT_LENGTH];
 
-    int ones[BIT_LENGTH-1];
-    int zeros[BIT_LENGTH-1];
+    int ones[BIT_LENGTH];
+    int zeros[BIT_LENGTH];
+
+    char **o2_gen_array[N_INPUT];
+    char **co2_scrub_array[N_INPUT];
 
     
     for(int i = 0; i < BIT_LENGTH-1; i++){
         ones[i] = 0;
         zeros[i] = 0;
-        gamma[i] = '0';
-        epsilon[i] = '0';
     }
-    gamma[BIT_LENGTH] = '\0';
-    epsilon[BIT_LENGTH] = '\0';
     
     FILE *fp;
     fp = fopen("input.txt", "r");
+    if(fp == NULL){
+        printf("Error: Unable to open file.\n");
+        return EXIT_FAILURE;
+    }
 
     while(fscanf(fp, "%s", buff) != EOF){
         
-        for(int i = 0; i < BIT_LENGTH; i++){
-        
+        for(int i = 0; i < BIT_LENGTH-1; i++){
             if(buff[i] == '1'){
                 ones[i] = ones[i]+1;
             }else if(buff[i] == '0'){
                 zeros[i] = zeros[i]+1;
             }
-            
+        }
+    }
+    rewind(fp);
+
+    int ones_c = 0;
+
+    while(fscanf(fp, "%s", buff) != EOF){
+        
+        if(ones[k++] >= zeros[k]){
+            o2_gen_array[k] = buff;
+
+        }
+        else if(ones[k] < zeros[k]){
+            o2_gen_array[k] = buff;
         }
     }
 
     
-    
-    //print sum of occurances of 1 or 0 in
-    //each index of corosponding arrays.
 
-    printf("ones: ");
-    print_binary_int_array(ones);
-    printf("zeros: ");
-    print_binary_int_array(zeros);
     
 
-    build_gamma_epsilon(gamma, epsilon, ones, zeros);
-    printf("gamma base2: ");
-    print_binary_char_array(gamma);
-    printf("epsilon: base2: ");
-    print_binary_char_array(epsilon);
+    // build_gamma_epsilon(gamma, epsilon, ones, zeros);
+    // printf("gamma base2: ");
+    // print_binary_char_array(gamma);
+    // printf("epsilon: base2: ");
+    // print_binary_char_array(epsilon);
 
-    int gamma_int = base10_to_binary(gamma);
-    int epsilon_int = base10_to_binary(epsilon);
+    // int gamma_int = base10_to_binary(gamma);
+    // int epsilon_int = base10_to_binary(epsilon);
 
-    printf("gamma base10: %d\n", gamma_int);
-    printf("epsilon base10: %d\n", epsilon_int);
+    // printf("gamma base10: %d\n", gamma_int);
+    // printf("epsilon base10: %d\n", epsilon_int);
 
-    printf("gamma * epsilon = %d\n", gamma_int*epsilon_int);
+    // printf("gamma * epsilon = %d\n", gamma_int*epsilon_int);
 
 
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
