@@ -9,6 +9,11 @@ public class value {
         status = status;
     }
 
+    public value(){
+        number = 0;
+        status = false;
+    }
+
     public void setNumber(int number){
         number = number;
     }
@@ -23,6 +28,12 @@ public class value {
 
     public boolean getStatus(){
         return status;
+    }
+
+    public String toString(){
+        String str = "Number: " + number + ", " + 
+                     "Status: " + status; 
+        return str;
     }
 
 }
