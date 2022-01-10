@@ -11,6 +11,9 @@ public class d3p2{
         public static final int input_size = 1000;
         public static final int digit_length = 12;
 
+        // public static final int input_size = 12;
+        // public static final int digit_length = 5;
+
 
     public static String recur_eval_co2(ArrayList<String> list, int[] bit_criteria_sums , int digit){            
 
@@ -18,48 +21,55 @@ public class d3p2{
             if((list.size() > 1) && (digit < digit_length)){
                 
                 ArrayList<String> keep = new ArrayList<String>();   
+                
                 bit_criteria_sums = bit_criteria(list, bit_criteria_sums, digit);
                 System.out.println("o2: " + bit_criteria_sums[0] + ", co2: " + bit_criteria_sums[1]);
 
 
-                if(bit_criteria_sums[0] <= bit_criteria_sums[1]){ 
+                if(bit_criteria_sums[1] <= bit_criteria_sums[0]){ 
 
                     for(int i = 0; i < list.size(); i++){
-                        if(bit_criteria_sums[0] < bit_criteria_sums[1]){
-                            if(list.get(i).charAt(digit)  == '1' ){
+                        if(bit_criteria_sums[1] < bit_criteria_sums[0]){
+                            if(list.get(i).charAt(digit)  == '0' ){
                                 keep.add(list.get(i));
                             }
                         }
                         else if(bit_criteria_sums[0] == bit_criteria_sums[1]){
-                            keep.add(list.get(i));
+                            if(list.get(i).charAt(digit)  == '0' ){
+                                keep.add(list.get(i));
+                            }
+                            
                         }
-                }
-                //System.out.println("List size: " + list.size());
-                return recur_eval_o2(keep, bit_criteria_sums, ++digit);
+                    }
+            
+                System.out.println(keep.toString());
+                return recur_eval_co2(keep, bit_criteria_sums, ++digit);
+                
             }
-            else if(bit_criteria_sums[1] <= bit_criteria_sums[0]) {
+            else if(bit_criteria_sums[0] <= bit_criteria_sums[1]) {
 
                 for(int i = 0; i < list.size(); i++){
 
-                    if(bit_criteria_sums[1] < bit_criteria_sums[0]){
-                        if(list.get(i).charAt(digit)  == '0' ){
+                    if(bit_criteria_sums[0] < bit_criteria_sums[1]){
+                        if(list.get(i).charAt(digit)  == '1' ){
                             keep.add(list.get(i));
                         }
-                        else if(bit_criteria_sums[0] == bit_criteria_sums[1]){
+                    }
+                    else if(bit_criteria_sums[0] == bit_criteria_sums[1]){
+                        if(list.get(i).charAt(digit)  == '1' ){
                             keep.add(list.get(i));
                         }
                     }
                 }
-                //System.out.println("List size: " + list.size());
-                return recur_eval_o2(keep, bit_criteria_sums, ++digit);
+                System.out.println(keep.toString());
+                return recur_eval_co2(keep, bit_criteria_sums, ++digit);
             }             
                 
-            }
+        }            
             
-            
-            //System.out.println("List size: " + list.size());
-            return list.get(0);
-        }
+        //System.out.println("List size: " + list.size());
+        return list.get(0);
+    }
     //-------------------------------------------------------------------
     public static String recur_eval_o2(ArrayList<String> list, int[] bit_criteria_sums , int digit){     
         
@@ -82,10 +92,13 @@ public class d3p2{
                         }
                     }
                     else if(bit_criteria_sums[0] == bit_criteria_sums[1]){
-                        keep.add(list.get(i));
+
+                        if(list.get(i).charAt(digit)  == '1' ){
+                            keep.add(list.get(i));
+                        }
                     }
                 }
-                //System.out.println("List size: " + list.size());
+                System.out.println(keep.toString());
                 return recur_eval_o2(keep, bit_criteria_sums, ++digit);
             }
             else if(bit_criteria_sums[1] >= bit_criteria_sums[0]) {
@@ -101,7 +114,7 @@ public class d3p2{
                         }
                     }
                 }
-                //System.out.println("List size: " + list.size());
+                System.out.println(keep.toString());
                 return recur_eval_o2(keep, bit_criteria_sums, ++digit);
             }          
             
@@ -156,15 +169,21 @@ public class d3p2{
         }  
 
 
-        ArrayList<String> input_co2 = new ArrayList<String>(binary_input);        
+        ArrayList<String> input_co2 = new ArrayList<String>(binary_input); 
         
+        
+        System.out.println("------------------------------------");
+        System.out.println("Calculating o2:\n");
         String o2 = recur_eval_o2(binary_input, bit_criteria_sums, 0);
-        String co2 = recur_eval_co2(input_co2, bit_criteria_sums, 0);
-        
         System.out.println("o2: " + o2 + ", " + base2_to_10(o2));
+        
+        System.out.println("------------------------------------");
+        System.out.println("Calculating co2:\n");
+        String co2 = recur_eval_co2(input_co2, bit_criteria_sums, 0);
         System.out.println("co2: " + co2 + ", " + base2_to_10(co2));
 
-        System.out.println("o2 * co2: " + base2_to_10(o2) * base2_to_10(co2) );
+        System.out.println("------------------------------------");
+        System.out.println("\no2 * co2: " + base2_to_10(o2) * base2_to_10(co2) );
 
         scan.close();
     }
