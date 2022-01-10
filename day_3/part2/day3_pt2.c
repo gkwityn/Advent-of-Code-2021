@@ -118,9 +118,14 @@ int main(int argc, char const *argv[])
     while(c < BIT_LENGTH-1){
 
         if(ones[c] >= zeros[c]){
-            int o2_size = ones[i];
-            temp1 = malloc(sizeof(char *) * ones[c] );
-            for(int i = 0; i < )
+            o2_gen_array[c] = malloc(sizeof(char *))
+            for(int i = 0; i < N_INPUT; i++){
+                if(input[i][c] == '1'){
+
+                    }
+                )
+            }
+            o2_gen_array
         }
 
         c++;
