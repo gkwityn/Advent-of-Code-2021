@@ -2,12 +2,14 @@ public class board {
 
     private int rows;
     private int columns;
+    private int index;
     private value[][] numbersList;
     
 
     public board(){
         rows = 5;
         columns = 5;  
+        index = 0;
         
         numbersList = new value[rows][columns];
 
@@ -16,6 +18,11 @@ public class board {
                 numbersList[i][j] = new value();
             }
         }
+    }
+
+    public void add(int num){
+        int thisRow = index / 
+        this.numbersList
     }
 
     
