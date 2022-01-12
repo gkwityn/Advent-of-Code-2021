@@ -5,8 +5,8 @@ public class value {
 
 
     public value(int number, boolean status){
-        number = number;
-        status = status;
+        this.number = number;
+        this.status = status;
     }
 
     public value(){
@@ -15,7 +15,7 @@ public class value {
     }
 
     public void setNumber(int number){
-        number = number;
+        this.number = number;
     }
 
     public int getNumber(){
@@ -23,7 +23,7 @@ public class value {
     }
 
     public void setStatus(boolean bool){
-        status = bool;
+        this.status = bool;
     }
 
     public boolean getStatus(){
