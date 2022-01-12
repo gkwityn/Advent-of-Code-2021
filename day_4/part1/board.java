@@ -18,10 +18,10 @@ public class board {
     }
 
 
-    public void add(int num, int row, int col){
+    public void add(int num, int r, int c){
 
-        numbersList[row][col].setNumber(num);
-        numbersList[row][col].setStatus(false);
+        numbersList[r][c].setNumber(num);
+        numbersList[r][c].setStatus(false);
     }
 
 
@@ -37,14 +37,16 @@ public class board {
         
     }
 
-    public int getNumber(int row, int col){
-        return numbersList[row][col].getNumber();
+    public int getNumber(int r, int c){
+        return numbersList[r][c].getNumber();
     }
 
 
-    public void setStatus(int row, int col, boolean bool){
-        numbersList[rows][col].setStatus(bool);
+    public void setStatus(int r, int c, boolean bool){
+        numbersList[r][c].setStatus(bool);
     }
 
-    
+    public boolean getStatus(int r, int c){
+        return numbersList[r][c].getStatus();
+    }
 }
