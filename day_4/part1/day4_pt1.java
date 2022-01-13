@@ -6,6 +6,7 @@ public class day4_pt1 {
     public static void check_for_hit(String s, board myBoard){
         
         int key = Integer.parseInt(s);
+        //System.out.println("Checking board for: " + key );
 
 
         for(int i = 0; i < 5; i++){
@@ -23,6 +24,7 @@ public class day4_pt1 {
         //Check rows for bingo
         for(int row = 0; row < 5; row++){
             if(checkRow(row, myBoard) == true){
+                System.out.println("bingo @ row: " + row );
                 return true;
             }
         }        
@@ -30,12 +32,14 @@ public class day4_pt1 {
         //Check columns for bingo
         for(int col = 0; col < 5; col++){
             if(checkCol(col, myBoard) == true){
+                System.out.println("bingo @ col: " + col );
                 return true;
             }
         }
 
         //Check diagonals
         if(checkDiagonal(myBoard)){
+            System.out.println("bingo diag");
             return true;
         }
 
@@ -94,10 +98,10 @@ public class day4_pt1 {
         boolean diagonalLeft = false;
 
         //check lefthand diagonal
-        for(int col = 0; col < 5; col++){
-            for(int row = 0; row < 5; row++){
+        for(int row = 4; row >= 0; row--){
+            for(int col = 4; col >= 0; col--){
                 if(row == col){
-                    if(myBoard.getStatus(col, row) == true){
+                    if(myBoard.getStatus(row, col) == true){
                         diagonalLeft = true;
                     }
                     else{
@@ -108,6 +112,7 @@ public class day4_pt1 {
             }
         }
 
+        System.out.println("diagRight: " +  diagonalRight + ", diagLeft: " + diagonalLeft);
         return diagonalRight || diagonalLeft;
     }
    
@@ -139,34 +144,47 @@ public class day4_pt1 {
                     }
                 }
                 boards.add(myBoard);
-                //myBoard.printList();
+                //myBoard.printList();      #boards are populated with values but all false 
             }
             
             //Print each board
-            for(int i = 0; i < boards.size(); i++){
-                boards.get(i).printList();
-                System.out.println("--------------------\n");
-            }
+            // for(int i = 0; i < boards.size(); i++){
+            //     boards.get(i).printList();
+            //     System.out.println("--------------------\n");
+            // }
             
             //check each board for a number hit
-            for(int i = 0; i < num_drawn.size(); i++){
+            for(int i = 0; i < 12; i++){
                 for(int j = 0; j < boards.size(); j++){
                     check_for_hit(num_drawn.get(i), boards.get(j));
+
+                    //Check boards for Bingo
+                    for(int k = 0; k < boards.size(); k++){
+                        if(check_for_bingo(boards.get(k))){
+                            System.out.println("Bingo! board#: " + k );
+                        }
+                        else{
+                            //System.out.println("No bingo found @ index: " + i);
+                        }
+
+                    }
                 }
                 
             }       
 
 
-
             //Check boards for Bingo
-            for(int i = 0; i < boards.size(); i++){
-                if(check_for_bingo(boards.get(i))){
-                    System.out.println("Bingo! index: " + i );
-                }
-                else{
-                    System.out.println("No bingo found @ index: " + i);
-                }
-            }
+            // for(int i = 0; i < boards.size(); i++){
+            //     if(check_for_bingo(boards.get(i))){
+            //         System.out.println("Bingo! board#: " + i );
+            //     }
+            //     else{
+            //         //System.out.println("No bingo found @ index: " + i);
+            //     }
+            // }
+
+            
+            
             
 
             inputFile.close();
