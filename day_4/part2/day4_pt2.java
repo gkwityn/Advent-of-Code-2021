@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.*;
-public class day4_pt1 {
+public class day4_pt2 {
     
     public static void check_for_hit(String s, board myBoard){
         
@@ -130,34 +130,38 @@ public class day4_pt1 {
         return sum;
     }
 
-    public static void play_game(ArrayList<String> num_drawn, ArrayList<board> boards ){
+    public static void play_game(ArrayList<String> num_drawn, ArrayList<board> boards, ArrayList<board> winning_boards ){
 
         //check each board for a number hit
         for(int i = 0; i < num_drawn.size(); i++){
             for(int j = 0; j < boards.size(); j++){
                 check_for_hit(num_drawn.get(i), boards.get(j));
 
-                //Check boards for Bingo
-                for(int k = 0; k < boards.size(); k++){
-                    if(check_for_bingo(boards.get(k))){
-                        System.out.println("Bingo! board#: " + k );
-                        System.out.println("Sum of the board is: " + sum_Unmarked(boards.get(k)) );
-                        System.out.println("Multiplier: " + num_drawn.get(i));
-                        System.out.println("Final: " + sum_Unmarked(boards.get(k)) * Integer.parseInt(num_drawn.get(i)) );
-                        return;
-                    }
-                    else{
-                        //System.out.println("No bingo found @ index: " + i);
-                    }
-                }
+                
             }        
         }  
+        //Check boards for Bingo
+        for(int k = 0; k < boards.size(); k++){
+            if(check_for_bingo(boards.get(k))){
+                System.out.println("Bingo! board#: " + k );
+                //System.out.println("Sum of the board is: " + sum_Unmarked(boards.get(k)) );
+                //System.out.println("Multiplier: " + num_drawn.get(i));
+                //System.out.println("Final: " + sum_Unmarked(boards.get(k)) * Integer.parseInt(num_drawn.get(i)) );
+                winning_boards.add(boards.get(k));
+                
+            }
+            else{
+                //System.out.println("No bingo found @ index: " + i);
+            }
+        }
+
+        System.out.println("Winning boards: " + winning_boards.size());
 
     }
     public static void main(String[] args) {
 
         try{
-            File fp = new File("input.txt");
+            File fp = new File("sample_input.txt");
             Scanner inputFile = new Scanner(fp);
 
 
@@ -189,8 +193,9 @@ public class day4_pt1 {
             //     boards.get(i).printList();
             //     System.out.println("--------------------\n");
             // }
-
-            play_game(num_drawn, boards);
+            
+            ArrayList<board> winning_boards = new ArrayList<board>();
+            play_game(num_drawn, boards, winning_boards);
             
                  
 
