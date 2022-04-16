@@ -24,7 +24,7 @@ public class day4_pt2 {
         //Check rows for bingo
         for(int row = 0; row < 5; row++){
             if(checkRow(row, myBoard) == true){
-                System.out.println("bingo @ row: " + row );
+                //System.out.println("bingo @ row: " + row );
                 return true;
             }
         }        
@@ -32,12 +32,12 @@ public class day4_pt2 {
         //Check columns for bingo
         for(int col = 0; col < 5; col++){
             if(checkCol(col, myBoard) == true){
-                System.out.println("bingo @ col: " + col );
+                //System.out.println("bingo @ col: " + col );
                 return true;
             }
         }
 
-        //Check diagonals
+        ////Check diagonals
         // if(checkDiagonal(myBoard)){
         //     System.out.println("bingo diag");
         //     return true;
@@ -135,15 +135,30 @@ public class day4_pt2 {
         //check each board for a number hit
         for(int i = 0; i < num_drawn.size(); i++){
             for(int j = 0; j < boards.size(); j++){
-                check_for_hit(num_drawn.get(i), boards.get(j));
 
-                
+                check_for_hit(num_drawn.get(i), boards.get(j));
+                if(check_for_bingo(boards.get(j))){
+                    if(boards.get(j).bingoStatus() == false){
+                        boards.get(j).setBingo();
+                        int sum = sum_Unmarked(boards.get(j));
+                        int numberDrawn = Integer.parseInt(num_drawn.get(i));
+                        int total = sum*numberDrawn;
+    
+                        System.out.println("Bingo sum#:" + sum + ", NumDrawn: " + numberDrawn + ", Total: " + total );
+                        winning_boards.add(boards.get(j));
+                        
+                    }                  
+                    
+                }               
             }        
         }  
+        
+
+        /*
         //Check boards for Bingo
         for(int k = 0; k < boards.size(); k++){
             if(check_for_bingo(boards.get(k))){
-                System.out.println("Bingo! board#: " + k );
+                //System.out.println("Bingo! board#: " + k );
                 //System.out.println("Sum of the board is: " + sum_Unmarked(boards.get(k)) );
                 //System.out.println("Multiplier: " + num_drawn.get(i));
                 //System.out.println("Final: " + sum_Unmarked(boards.get(k)) * Integer.parseInt(num_drawn.get(i)) );
@@ -154,14 +169,29 @@ public class day4_pt2 {
                 //System.out.println("No bingo found @ index: " + i);
             }
         }
+        */
 
-        System.out.println("Winning boards: " + winning_boards.size());
+        //System.out.println("Winning boards: " + winning_boards.size());
 
+    }
+    
+    public static int sumMarked(board myboard){
+        int sum = 0;
+
+        for(int row = 0; row < 5; row++){
+            for(int col = 0; col < 5; col++){
+                if(myboard.getStatus(row, col) != false){
+                    sum += myboard.getNumber(row, col);
+                }
+            }
+        }
+        
+        return sum;
     }
     public static void main(String[] args) {
 
         try{
-            File fp = new File("sample_input.txt");
+            File fp = new File("input.txt");
             Scanner inputFile = new Scanner(fp);
 
 
@@ -197,39 +227,18 @@ public class day4_pt2 {
             ArrayList<board> winning_boards = new ArrayList<board>();
             play_game(num_drawn, boards, winning_boards);
             
-                 
+            
 
 
-            //Check boards for Bingo
-            // for(int i = 0; i < boards.size(); i++){
-            //     if(check_for_bingo(boards.get(i))){
-            //         System.out.println("Bingo! board#: " + i );
-            //         System.out.println("Sum of the board is: " + sum_Unmarked(boards.get(i)) );
-            //     }
-            //     else{
-            //         //System.out.println("No bingo found @ index: " + i);
-            //     }
-            // }
 
-            
-            
-            
+        
 
             inputFile.close();
         }
         catch(FileNotFoundException e){
             System.out.println(e);
         }
-
-        
-        
-        
-
-
-
-
-
-            
+    
         System.exit(0);
     }
     

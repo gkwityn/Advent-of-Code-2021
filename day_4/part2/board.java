@@ -3,12 +3,14 @@ public class board {
     private int rows;
     private int columns;
     private value[][] numbersList;
+    boolean bingo;
     
 
     public board(){
         rows = 5;
         columns = 5;          
         numbersList = new value[rows][columns];
+        bingo = false;
 
         for(int i = 0; i < rows; i++){
             for(int j = 0; j < columns; j++){
@@ -48,5 +50,12 @@ public class board {
 
     public boolean getStatus(int r, int c){
         return numbersList[r][c].getStatus();
+    }
+    
+    public void setBingo(){
+        this.bingo = true;
+    }
+    public boolean bingoStatus(){
+        return this.bingo;
     }
 }
