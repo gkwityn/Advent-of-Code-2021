@@ -15,6 +15,9 @@ public class day5_pt1 {
         try{
             File file = new File("sample_input.txt");
             Scanner scan = new Scanner(file);
+
+            int x1_grid, x2_grid, y1_grid, y2_grid = 0;
+
             while(scan.hasNextLine()){
                 int x1, x2, y1, y2;
                 String line = scan.nextLine();
@@ -64,7 +67,7 @@ public class day5_pt1 {
         fileIO(lineList, max_X, max_Y);
 
         int overlapSum = 0;
-        findOverlap(overlapSum, lineList);
+        findOverlap(overlapSum, lineList);      
 
 
 
