@@ -10,13 +10,11 @@ import java.util.Scanner;
 
 public class day5_pt1 {
 
-    public static void fileIO(ArrayList lineList, int max_X, int max_Y) {
+    public static void fileIO(ArrayList lineList, Grid mygrid) {
         
         try{
             File file = new File("sample_input.txt");
-            Scanner scan = new Scanner(file);
-
-            int x1_grid, x2_grid, y1_grid, y2_grid = 0;
+            Scanner scan = new Scanner(file);            
 
             while(scan.hasNextLine()){
                 int x1, x2, y1, y2;
@@ -29,11 +27,31 @@ public class day5_pt1 {
                 x2 = Integer.parseInt(token.nextToken());                
                 y2 = Integer.parseInt(token.nextToken());                  
                 
+                //Check for straight or vertial line
                 if(x1 == x2 || y1 == y2){
                     LineObj myLine = new LineObj(x1,x2,y1,y2);                
                     lineList.add(myLine);  
                 }
-                              
+
+
+                //x1_grid && y1_grid vertex = 0
+
+                //Expand the grid size to max x & y
+                if(x1 >= mygrid.get_x2()){
+                    mygrid.set_x2(x1);
+                }
+                if(x2 >= mygrid.get_x2()){
+                    mygrid.set_x2(x2);
+                }
+
+                if(y1 >= mygrid.get_y2()){
+                    mygrid.set_y2(y1);
+                }
+                if(y2 >= mygrid.get_y2()){
+                    mygrid.set_y2(y2);
+                } 
+                
+                
             }
 
             scan.close();
@@ -62,9 +80,11 @@ public class day5_pt1 {
     public static void main(String[] args) {
 
         ArrayList<LineObj> lineList = new ArrayList<>();
-        int max_X = 0; 
-        int max_Y = 0;
-        fileIO(lineList, max_X, max_Y);
+        Grid mygrid = new Grid();
+        
+        fileIO(lineList, mygrid);
+
+        mygrid.print_Grid();
 
         int overlapSum = 0;
         findOverlap(overlapSum, lineList);      
