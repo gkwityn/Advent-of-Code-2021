@@ -4,17 +4,20 @@ import java.util.StringTokenizer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.Scanner;
 
 @SuppressWarnings("unchecked")
 
 public class day5_pt1 {
 
-    public static void fileIO(ArrayList lineList, Grid mygrid) {
+    public static void fileIO(ArrayList lineList, int x_max, int y_max) {
         
         try{
             File file = new File("sample_input.txt");
             Scanner scan = new Scanner(file);            
+
+            
 
             while(scan.hasNextLine()){
                 int x1, x2, y1, y2;
@@ -34,27 +37,24 @@ public class day5_pt1 {
                 }
 
 
-                //x1_grid && y1_grid vertex = 0
-
-                //Expand the grid size to max x & y
-                if(x1 >= mygrid.get_x2()){
-                    mygrid.set_x2(x1);
-                }
-                if(x2 >= mygrid.get_x2()){
-                    mygrid.set_x2(x2);
+                if(x1 >= x_max){
+                    x_max = x1;
                 }
 
-                if(y1 >= mygrid.get_y2()){
-                    mygrid.set_y2(y1);
+                if(x2 >= x_max){
+                    x_max = x2;
                 }
-                if(y2 >= mygrid.get_y2()){
-                    mygrid.set_y2(y2);
-                } 
-                
-                
+
+                if(y1 >= y_max){                    
+                    y_max = y1;
+                }
+
+                if(y2 >= y_max){
+                    y_max = y2;
+                }
             }
 
-            scan.close();
+            scan.close();           
         }
         catch(FileNotFoundException e){
             System.out.println("Error: File Not Found");
@@ -80,11 +80,17 @@ public class day5_pt1 {
     public static void main(String[] args) {
 
         ArrayList<LineObj> lineList = new ArrayList<>();
-        Grid mygrid = new Grid();
         
-        fileIO(lineList, mygrid);
+        int x_max, y_max;
+        x_max = y_max = 0;
+        
+        
+        fileIO(lineList, x_max, y_max);
 
-        mygrid.print_Grid();
+        System.out.println(x_max + ", " + y_max);
+
+
+        
 
         int overlapSum = 0;
         findOverlap(overlapSum, lineList);      
