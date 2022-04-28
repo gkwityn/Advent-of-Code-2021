@@ -1,14 +1,9 @@
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 
-
-@SuppressWarnings("unchecked")
 
 public class day5_pt1 {
 
