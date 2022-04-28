@@ -1,11 +1,12 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
-import java.util.Scanner;
+
 
 @SuppressWarnings("unchecked")
 
@@ -14,14 +15,15 @@ public class day5_pt1 {
     public static int xMax = 0;
     public static int yMax = 0;
 
-    public static void fileIO() {
+    public static ArrayList<ArrayList<Point>> fileIO(ArrayList<ArrayList<Point>> lineList) {
         
         try{
-            File file = new File("sample_input.txt");
+            File file = new File("input.txt");
             Scanner scan = new Scanner(file);            
             
+           
+            while(scan.hasNextLine()){           
 
-            while(scan.hasNextLine()){
                 int x1, x2, y1, y2;
                 String line = scan.nextLine();
                 String format= line.replace(" -> ", ",");
@@ -32,8 +34,8 @@ public class day5_pt1 {
                 x2 = Integer.parseInt(token.nextToken());             
                 y2 = Integer.parseInt(token.nextToken());
 
-               //System.out.println("Original");
-               //System.out.println(x1 + ", " + y1 + ", " + x2 + ", " + y2);
+                //System.out.println("Original");
+                //System.out.println(x1 + ", " + y1 + ", " + x2 + ", " + y2);
 
                 //Find the max for determining grid size.
                 xMax = findxMax(xMax, x1, x2);                
@@ -61,27 +63,50 @@ public class day5_pt1 {
                     }
                 }
 
-                //System.out.println("Updated");
-                //System.out.println(x1 + ", " + y1 + ", " + x2 + ", " + y2 +"\n");   
-                
-                int[][]point = new int[1][1];
-                ArrayList<int[][]> line = buildLine(line, x1, y1, x2, y2);
-                
+                System.out.println("Updated");
+                System.out.println(x1 + ", " + y1 + ", " + x2 + ", " + y2 );   
+
+                ArrayList<Point> myLine = new ArrayList<Point>();
+                myLine = buildLine(myLine, x1, x2, y1, y2);
+                lineList.add(myLine);
+               
+            
             }
 
-            scan.close();           
+            scan.close(); 
+            return lineList;           
+            
         }
         catch(FileNotFoundException e){
             System.out.println("Error: File Not Found");
             System.exit(0);
         }
+        return lineList;
     }
+    
+    public static ArrayList<Point> buildLine(ArrayList<Point> myLine, int x1, int x2, int y1, int y2){
+        //Build a Vertical Set of Points
+        if(x1 == x2){
+            for(int y = y1; y <= y2; y++){
+                Point myPoint = new Point(x1, y);
+                myLine.add(myPoint);                      
+            }
+        }
+        //Build a Horizontal Set of Points
+        else if(y1 == y2){
+            for(int x = x1; x <= x2; x++){
+                Point myPoint = new Point(x, y1);
+                myLine.add(myPoint);
+            }
+        }
 
-    //TODO
-    //Build the line arraylist
-    public static ArrayList buildLine(ArrayList line, int x1, int y1, int x2, inty2)){
+        //Print Line Points
+        // for(Point point: myLine){
+        //     point.printPoint();
+        // }
+        // System.out.println("\n");
 
-        return line;
+        return myLine;
     }
 
     public static int findxMax(int xMax, int x1, int x2){
@@ -109,25 +134,76 @@ public class day5_pt1 {
         return yMax;
     }
 
-    public static void print_grid(){
-        for(int x = 0; x < xMax; x++){
-            for(int y = 0; y < yMax; y++){
-                System.out.printf(".");
+    public static void print_grid(int[][] grid){
+
+        for(int y = 0; y <= yMax; y++ ){
+        for(int x = 0; x <= xMax; x++ ){
+                            
+                    System.out.print(grid[x][y] + " ");
             }
-            System.out.printf("\n");
+            System.out.println();
+        }   
+    }
+
+    public static int[][] buildGrid(int[][] grid){
+
+        grid = new int[xMax+1][yMax+1];
+
+        for(int x = 0; x <= xMax; x++ ){
+            for(int y = 0; y <= yMax; y++ ){
+                grid[x][y] = 0;
+            }
         }
+
+        return grid;
     }
    
-
-
     public static void main(String[] args) {
         
-        fileIO();
-   
+        ArrayList<ArrayList<Point>> lineList = new ArrayList<ArrayList<Point>>();
+
+        lineList = fileIO(lineList);      
+
+        //Print Line Points
+        /*
+        for(ArrayList<Point> line: lineList){
+            System.out.println("\nPoint:");
+            for(Point point: line){
+                point.printPoint();
+            }
+        }
         //System.out.println("Final xMAx: " + xMax);
         //System.out.println("Final yMAx: " + yMax);
+        */
+               
+        int[][] grid = null;
+        grid = buildGrid(grid);
+        //print_grid(grid);
 
-        print_grid();
+        //Iterate through each line and increment grid where point is found.
+        for(ArrayList<Point> line: lineList){            
+            for(Point point: line){
+               grid[point.getX()][point.getY()]++;  
+            }
+        }
+        
+        //Count the  instances/coordinates of line overlap
+        int count = 0;
+        for(int[] line: grid){
+            for(int point: line){
+                if(point >= 2){
+                    count++;
+                }
+            }
+        }
+
+        System.out.println("N Overlaps: "+ count);
+        //print_grid(grid);
+            
+
+        
+
+
 
     }
         
