@@ -13,7 +13,7 @@ public class day5_pt2 {
     public static ArrayList<ArrayList<Point>> fileIO(ArrayList<ArrayList<Point>> lineList) {
         
         try{
-            File file = new File("input.txt");
+            File file = new File("sample_input.txt");
             Scanner scan = new Scanner(file);            
             
            
@@ -35,29 +35,14 @@ public class day5_pt2 {
                 //Find the max for determining grid size.
                 xMax = findxMax(xMax, x1, x2);                
                 yMax = findxMax(yMax, y1, y2);
-
-                                
-                //Format coordinates to move in positive direction
-                if(x2 < x1){
-                    int temp = x1;
-                    x1 = x2;
-                    x2 = temp;
-                }
-
-                if(y2 < y1){
-                    int temp = y1;
-                    y1 = y2;
-                    y2 = temp;
-                }              
+           
                 
                
-                System.out.println("Updated");
-                System.out.println(x1 + ", " + y1 + ", " + x2 + ", " + y2 );   
+                System.out.println("\nInput: " + x1 + ", " + y1 + ", " + x2 + ", " + y2 );   
 
                 ArrayList<Point> myLine = new ArrayList<Point>();
                 myLine = buildLine(myLine, x1, x2, y1, y2);
-                lineList.add(myLine);
-               
+                lineList.add(myLine);             
             
             }
 
@@ -90,16 +75,63 @@ public class day5_pt2 {
         5,5 -> 8,2
         */
 
+      //Build a Vertical Set of Points
+      if(x1 == x2){
+        if(y1 < y2){
+            System.out.println("x1=x2, y1<y2");
+            for(int y = y1; y <= y2; y++){
+                Point myPoint = new Point(x1, y);
+                myPoint.printPoint();
+                myLine.add(myPoint);                                      
+            }
+        }
+        else if(y2 < y1){
+            System.out.println("x1=x2, y2<y1");
+            for(int y = y2; y <= y1; y++){
+                Point myPoint = new Point(x1, y);
+                myPoint.printPoint();
+                myLine.add(myPoint);                                     
+            }
+        }
+        return myLine;
+    }
+    //Build a Horizontal Set of Points
+    if(y1 == y2){
+        if(x1 < x2){
+            System.out.println("y1=y2, x1<x2");
+            for(int x = x1; x <= x2; x++){
+                Point myPoint = new Point(x, y1);
+                myPoint.printPoint();
+                myLine.add(myPoint);
+            }
+            return myLine;
+        }
+        else if(x2 < x1){
+            System.out.println("y1=y2, x2<x1");
+            for(int x = x2; x <= x1; x++){
+                Point myPoint = new Point(x, y1);
+                myPoint.printPoint();
+                myLine.add(myPoint);
+            }
+        }
+        return myLine;
+    }
+
+
+
+        /*
         //Build diagonal line.
         if(x1 < x2 && y1 < y2){
             for(int x = x1; x1 <= x2; x++){
                 for(int y = y1; y <= y2; y++){
                     Point myPoint = new Point(x, y);
+                    myPoint.printPoint();
                     myLine.add(myPoint);  
                 }
             }
             return myLine;
         }
+        
         else if(x1 < x2 && y1 > y2){
             for(int x = x1; x1 <= x2; x++){
                 for(int y = y2; y >= y1; y--){
@@ -126,43 +158,11 @@ public class day5_pt2 {
                 }
             }
             return myLine;
-        }       
+        }  
+        */     
         
 
-        //Build a Vertical Set of Points
-        if(x1 == x2){
-            if(y1 < y2){
-                for(int y = y1; y <= y2; y++){
-                    Point myPoint = new Point(x1, y);
-                    myLine.add(myPoint);                      
-                }
-            }
-            else if(y2 <y1){
-                for(int y = y2; y <= y1; y++){
-                    Point myPoint = new Point(x1, y);
-                    myLine.add(myPoint);                      
-                }
-            }
-            return myLine;
-        }
-        //Build a Horizontal Set of Points
-        if(y1 == y2){
-            if(x1 < x2){
-                for(int x = x1; x <= x2; x++){
-                    Point myPoint = new Point(x, y1);
-                    myLine.add(myPoint);
-                }
-                return myLine;
-            }
-            else if(x2 < x1){
-                for(int x = x2; x <= x1; x++){
-                    Point myPoint = new Point(x, y1);
-                    myLine.add(myPoint);
-                }
-            }
-            return myLine;
-        }
-
+  
         
 
         //Print Line Points
