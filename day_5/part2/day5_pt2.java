@@ -73,7 +73,8 @@ public class day5_pt2 {
     }
     
     public static ArrayList<Point> buildLine(ArrayList<Point> myLine, int x1, int x2, int y1, int y2){
-        //TODO Rework to Build diagonal lines.
+        //TODO 
+        //Rework to Build diagonal lines.
         //1,1 -> 3,3 covers points 1,1, 2,2, and 3,3.
         //9,7 -> 7,9 covers points 9,7, 8,8, and 7,9
         /*
