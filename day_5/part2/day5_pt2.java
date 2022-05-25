@@ -13,7 +13,7 @@ public class day5_pt2 {
     public static ArrayList<ArrayList<Point>> fileIO(ArrayList<ArrayList<Point>> lineList) {
         
         try{
-            File file = new File("sample_input.txt");
+            File file = new File("input.txt");
             Scanner scan = new Scanner(file);            
             
            
@@ -38,7 +38,7 @@ public class day5_pt2 {
            
                 
                
-                System.out.println("\nInput: " + x1 + ", " + y1 + ", " + x2 + ", " + y2 );   
+                System.out.println("\n\nInput: " + x1 + ", " + y1 + ", " + x2 + ", " + y2 );   
 
                 ArrayList<Point> myLine = new ArrayList<Point>();
                 myLine = buildLine(myLine, x1, x2, y1, y2);
@@ -58,27 +58,11 @@ public class day5_pt2 {
     }
     
     public static ArrayList<Point> buildLine(ArrayList<Point> myLine, int x1, int x2, int y1, int y2){
-        //TODO 
-        //Rework to Build diagonal lines.
-        //1,1 -> 3,3 covers points 1,1, 2,2, and 3,3.
-        //9,7 -> 7,9 covers points 9,7, 8,8, and 7,9
-        /*
-        0,9 -> 5,9 : 0,9, 1,9, 2,9, 3,9, 4,9, 5,9 
-        8,0 -> 0,8 : 8,0, 7,1, 6,2, 5,3, 4,4, 3,5, 2,6, 1,7, 0,8 
-        9,4 -> 3,4 : 9,4, 8,4, 7,4, 6,4, 5,4, 4,4, 3,4
-        2,2 -> 2,1 : 2,2, 2,1
-        7,0 -> 7,4 : 7,0, 7,1, 7,2, 7,3, 7,4 
-        6,4 -> 2,0 : 6,4, 
-        0,9 -> 2,9
-        3,4 -> 1,4
-        0,0 -> 8,8 : 0,0, 1,1
-        5,5 -> 8,2
-        */
 
-      //Build a Vertical Set of Points
-      if(x1 == x2){
+    //Build a Vertical Set of Points
+    if(x1 == x2){
         if(y1 < y2){
-            System.out.println("x1=x2, y1<y2");
+            //System.out.println("x1=x2, y1<y2");
             for(int y = y1; y <= y2; y++){
                 Point myPoint = new Point(x1, y);
                 myPoint.printPoint();
@@ -86,7 +70,7 @@ public class day5_pt2 {
             }
         }
         else if(y2 < y1){
-            System.out.println("x1=x2, y2<y1");
+            //System.out.println("x1=x2, y2<y1");
             for(int y = y2; y <= y1; y++){
                 Point myPoint = new Point(x1, y);
                 myPoint.printPoint();
@@ -98,7 +82,7 @@ public class day5_pt2 {
     //Build a Horizontal Set of Points
     if(y1 == y2){
         if(x1 < x2){
-            System.out.println("y1=y2, x1<x2");
+            //System.out.println("y1=y2, x1<x2");
             for(int x = x1; x <= x2; x++){
                 Point myPoint = new Point(x, y1);
                 myPoint.printPoint();
@@ -107,7 +91,7 @@ public class day5_pt2 {
             return myLine;
         }
         else if(x2 < x1){
-            System.out.println("y1=y2, x2<x1");
+            //System.out.println("y1=y2, x2<x1");
             for(int x = x2; x <= x1; x++){
                 Point myPoint = new Point(x, y1);
                 myPoint.printPoint();
@@ -118,60 +102,58 @@ public class day5_pt2 {
     }
 
 
-
-        /*
-        //Build diagonal line.
-        if(x1 < x2 && y1 < y2){
-            for(int x = x1; x1 <= x2; x++){
-                for(int y = y1; y <= y2; y++){
-                    Point myPoint = new Point(x, y);
-                    myPoint.printPoint();
-                    myLine.add(myPoint);  
-                }
+    //Build one of 4 different diagonal lines.
+    if(x1 < x2 && y1 < y2){
+        //System.out.println("Diagonal: x1 < x2, y1 < y2");
+        for(int x = x1; x <= x2; x++){
+            for(int y = y1; y <= y2; y++){
+                Point myPoint = new Point(x, y);
+                myPoint.printPoint();
+                myLine.add(myPoint);
+                x++; 
             }
-            return myLine;
         }
-        
-        else if(x1 < x2 && y1 > y2){
-            for(int x = x1; x1 <= x2; x++){
-                for(int y = y2; y >= y1; y--){
-                    Point myPoint = new Point(x, y);
-                    myLine.add(myPoint);  
-                }
-            }
-            return myLine;
-        }
-        else if(x1 > x2 && y1 < y2){
-            for(int x = x2; x >= x1; x--){
-                for(int y = y1; y <= y2; y++){
-                    Point myPoint = new Point(x, y);
-                    myLine.add(myPoint);  
-                }
-            }
-            return myLine;
-        }
-        else if(x1 > x2 && y1 > y2){
-            for(int x = x2; x >= x1; x--){
-                for(int y = y2; y >= y1; y--){
-                    Point myPoint = new Point(x, y);
-                    myLine.add(myPoint);  
-                }
-            }
-            return myLine;
-        }  
-        */     
-        
-
-  
-        
-
-        //Print Line Points
-        // for(Point point: myLine){
-        //     point.printPoint();
-        // }
-        // System.out.println("\n");
-
         return myLine;
+    }
+    else if(x1 < x2 && y1 > y2){
+       //System.out.println("Diagonal: x1 < x2, y1 > y2");
+        for(int x = x1; x <= x2; x++){
+            for(int y = y1; y >= y2; y--){
+                Point myPoint = new Point(x, y);
+                myPoint.printPoint();
+                myLine.add(myPoint);  
+                x++;
+            }
+        }
+        return myLine;
+    }
+    else if(x1 > x2 && y1 < y2){
+        //System.out.println("Diagonal: x1 > x2, y1 < y2");
+        for(int x = x1; x >= x2; x--){
+            for(int y = y1; y <= y2; y++){
+                Point myPoint = new Point(x, y);
+                myPoint.printPoint();
+                myLine.add(myPoint);  
+                x--;                
+            }
+        }
+        return myLine;
+    }
+    else if(x1 > x2 && y1 > y2){
+        //System.out.println("Diagonal: x1 > x2, y1 > y2");
+        for(int x = x1; x >= x2; x--){
+            for(int y = y1; y >= y2; y--){
+                Point myPoint = new Point(x, y);
+                myPoint.printPoint();
+                myLine.add(myPoint);  
+                x--;
+            }
+        }
+        return myLine;
+    }  
+
+
+    return myLine;
     }
 
     public static int findxMax(int xMax, int x1, int x2){
@@ -261,14 +243,8 @@ public class day5_pt2 {
                 }
             }
         }
-
+        System.out.println("\n\n****************************");
         System.out.println("N Overlaps: "+ count);
-        //print_grid(grid);
-            
-
-        
-
-
-
+        System.out.println("****************************");
     }
 }
