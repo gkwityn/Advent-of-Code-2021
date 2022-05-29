@@ -10,7 +10,7 @@ import static java.lang.System.out;
 
 public class day6_pt2 {
 
-    public static void read_input(ArrayList<Integer> input){
+    public static void read_input(int[] input){
         try{
             File file = new File("input.txt");
             Scanner scan = new Scanner(file);
@@ -19,8 +19,9 @@ public class day6_pt2 {
             
             StringTokenizer tokenList = new StringTokenizer(inputStr, ",");
             
+            int i = 0;
             while(tokenList.hasMoreTokens()){
-                input.add(Integer.parseInt( tokenList.nextToken()));
+                input[i++] = Integer.parseInt( tokenList.nextToken());
             }
 
             scan.close();
@@ -81,13 +82,15 @@ public class day6_pt2 {
 
     public static void main(String[] args) {
 
-        ArrayList<Integer> input = new ArrayList<Integer>();
+        //Array indices 0-9 representing internal timer in days.
+        //Value in index represents number of fish of that internal timer.
+        int[] input = new int[9];
 
         read_input(input);
-        print_State(input, "Initial State: ");
-        run_Simulation(input);
-        how_many_fish(input);
-
+        
+        for(int x: input){
+            out.print(x +" ");
+        }
 
         
        
