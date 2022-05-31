@@ -12,16 +12,16 @@ public class day6_pt2 {
 
     public static void read_input(int[] input){
         try{
-            File file = new File("input.txt");
+            File file = new File("sample_input.txt");
             Scanner scan = new Scanner(file);
             
             String inputStr = scan.nextLine();
             
             StringTokenizer tokenList = new StringTokenizer(inputStr, ",");
-            
-            int i = 0;
+        
             while(tokenList.hasMoreTokens()){
-                input[i++] = Integer.parseInt( tokenList.nextToken());
+                int temp = Integer.parseInt( tokenList.nextToken());
+                input[temp] = input[temp]+1;
             }
 
             scan.close();
@@ -29,30 +29,18 @@ public class day6_pt2 {
         }
         catch(FileNotFoundException e){
             System.out.println(e);
-            System.exit(1);            
+            System.exit(1);
         }
         
     }
 
-
-    public static void print_State(ArrayList<Integer> input, String state){
-       
-        System.out.print(state);
-        for(int x: input){
-            System.out.print(x+" ");
-        }
-        System.out.println();
-    }
-
-
-    public static void run_Simulation(ArrayList<Integer> input){
+    public static void run_Simulation(int[] input){
         for(int day = 1; day <= 80; day++){
             int spawn = 0;
 
-            for(int i = 0; i < input.size(); i++){
-                if(input.get(i) == 0 ){
-                    spawn++;
-                    input.set(i, 6);
+            for(int i = 0; i < input.length; i++){
+                if(input[i] == 0 ){
+                    input[9] = input[9]++; 
                 }
                 else{
                     int current = input.get(i);
@@ -71,7 +59,6 @@ public class day6_pt2 {
 
     }
 
-
     public static void how_many_fish(ArrayList<Integer> input){
 
     System.out.println("\n********************");
@@ -86,10 +73,16 @@ public class day6_pt2 {
         //Value in index represents number of fish of that internal timer.
         int[] input = new int[9];
 
+        //Initialize Array to all zeros
+        for(int i =0; i < input.length; i++){
+            input[i] = 0;
+        } 
+           
+
         read_input(input);
         
-        for(int x: input){
-            out.print(x +" ");
+        for(int i = 0; i < input.length; i++ ){
+            out.println("Index " + i + ": " + input[i]);
         }
 
         
