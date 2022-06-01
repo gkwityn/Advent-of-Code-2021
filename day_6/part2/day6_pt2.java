@@ -38,6 +38,18 @@ public class day6_pt2 {
     public static void run_Simulation(int[] input){
         for(int day = 1; day <= 80; day++){
 
+            for(int i = input.length-1; i >= 0; i++){
+                if(i > 0){
+                    input[i] = input[i+1];
+                    continue;
+                }
+                else if (i == 0 ) {
+                    input[i] = input[i+1];
+                    input[input.length] = input[0];
+                } else {
+                    
+                }
+            }
             System.out.println(input[day] + "After " + day + " days: ");
         }
 
