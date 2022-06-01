@@ -35,38 +35,10 @@ public class day6_pt2 {
     }
 
 
-    public static void print_State(ArrayList<Integer> input, String state){
-       
-        System.out.print(state);
-        for(int x: input){
-            System.out.print(x+" ");
-        }
-        System.out.println();
-    }
-
-
-    public static void run_Simulation(ArrayList<Integer> input){
+    public static void run_Simulation(int[] input){
         for(int day = 1; day <= 80; day++){
-            int spawn = 0;
 
-            for(int i = 0; i < input.size(); i++){
-                if(input.get(i) == 0 ){
-                    spawn++;
-                    input.set(i, 6);
-                }
-                else{
-                    int current = input.get(i);
-                    current--;
-                    input.set(i, current);
-                }
-            }
-
-            for(int i = 0; i < spawn; i++){
-                input.add(8);
-            }
-
-
-            print_State(input, "After " + day + " days: ");
+            System.out.println(input[day] + "After " + day + " days: ");
         }
 
     }
