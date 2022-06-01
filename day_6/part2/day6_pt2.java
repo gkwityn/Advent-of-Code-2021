@@ -12,16 +12,16 @@ public class day6_pt2 {
 
     public static void read_input(int[] input){
         try{
-            File file = new File("input.txt");
+            File file = new File("sample_input.txt");
             Scanner scan = new Scanner(file);
             
             String inputStr = scan.nextLine();
             
             StringTokenizer tokenList = new StringTokenizer(inputStr, ",");
-            
-            int i = 0;
+        
             while(tokenList.hasMoreTokens()){
-                input[i++] = Integer.parseInt( tokenList.nextToken());
+                int temp = Integer.parseInt( tokenList.nextToken());
+                input[temp] = input[temp]+1;
             }
 
             scan.close();
@@ -29,19 +29,28 @@ public class day6_pt2 {
         }
         catch(FileNotFoundException e){
             System.out.println(e);
-            System.exit(1);            
+            System.exit(1);
         }
         
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> a79b861b8d7c688f113ef28b84523bc7bc25f75c
     public static void run_Simulation(int[] input){
         for(int day = 1; day <= 80; day++){
 
+<<<<<<< HEAD
             for(int i = input.length-1; i >= 0; i++){
                 if(i > 0){
                     input[i] = input[i+1];
                     continue;
+=======
+            for(int i = 0; i < input.length; i++){
+                if(input[i] == 0 ){
+                    input[9] = input[9]++; 
+>>>>>>> a79b861b8d7c688f113ef28b84523bc7bc25f75c
                 }
                 else if (i == 0 ) {
                     input[i] = input[i+1];
@@ -54,7 +63,6 @@ public class day6_pt2 {
         }
 
     }
-
 
     public static void how_many_fish(ArrayList<Integer> input){
 
@@ -70,10 +78,16 @@ public class day6_pt2 {
         //Value in index represents number of fish of that internal timer.
         int[] input = new int[9];
 
+        //Initialize Array to all zeros
+        for(int i =0; i < input.length; i++){
+            input[i] = 0;
+        } 
+           
+
         read_input(input);
         
-        for(int x: input){
-            out.print(x +" ");
+        for(int i = 0; i < input.length; i++ ){
+            out.println("Index " + i + ": " + input[i]);
         }
 
         
