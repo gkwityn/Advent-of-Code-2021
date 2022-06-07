@@ -34,23 +34,17 @@ public class day6_pt2 {
         
     }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> a79b861b8d7c688f113ef28b84523bc7bc25f75c
     public static void run_Simulation(int[] input){
         for(int day = 1; day <= 80; day++){
 
-<<<<<<< HEAD
+
             for(int i = input.length-1; i >= 0; i++){
                 if(i > 0){
                     input[i] = input[i+1];
                     continue;
-=======
             for(int i = 0; i < input.length; i++){
                 if(input[i] == 0 ){
-                    input[9] = input[9]++; 
->>>>>>> a79b861b8d7c688f113ef28b84523bc7bc25f75c
+                    input[9] = input[9]++;
                 }
                 else if (i == 0 ) {
                     input[i] = input[i+1];
